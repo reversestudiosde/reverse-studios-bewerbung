@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f3">
+  <meta name="description" content="Bewirb dich bei Reverse Studios, L&L, MixFix oder LET Studios.">
+  <title>Bewerbung | Reverse Studios</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f7f3;
+      --ink: #101112;
+      --muted: #666a68;
+      --line: #171918;
+      --teal: #00c8d1;
+      --red: #ed343c;
+      --blue: #3f49d8;
+      --white: #fff;
+      --display: "Trebuchet MS", "Segoe UI", sans-serif;
+      --body: "Aptos", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background-color: var(--paper);
+      background-image: radial-gradient(#1011120d .7px, transparent .7px);
+      background-size: 8px 8px;
+      color: var(--ink);
+      font-family: var(--body);
+      cursor: auto;
+    }
+
+    a, button, select, label { cursor: pointer; }
+    input, textarea { cursor: text; }
+
+    button, input, select, textarea { font: inherit; }
+
+    .page-shell {
+      width: min(1180px, calc(100% - 56px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      min-height: 96px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--line);
+      gap: 24px;
+    }
+
+    .main-logo { display: block; width: min(290px, 44vw); height: auto; }
+    .topbar-actions { display: flex; align-items: center; gap: 28px; }
+    .info-link { color: var(--ink); font-family: var(--display); font-size: 13px; font-weight: 800; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+
+    .top-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .live-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px #00c8d122; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 28px;
+      padding: 48px 0 38px;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--red);
+      font-family: var(--display);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: .92;
+      text-transform: uppercase;
+    }
+
+    .hero-mark {
+      display: grid;
+      width: 94px;
+      height: 94px;
+      align-items: center;
+      justify-items: center;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      background: var(--teal);
+      font-family: var(--display);
+      font-size: 40px;
+      font-weight: 800;
+      transform: rotate(-8deg);
+    }
+
+    .intro {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 24px 0 30px;
+    }
+
+    .intro p { max-width: 560px; margin: 0; font-size: 17px; line-height: 1.6; }
+    .intro strong { font-weight: 800; }
+    .form-count { flex: 0 0 auto; align-self: center; color: var(--muted); font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+
+    .application { border: 2px solid var(--line); background: var(--paper); }
+
+    .form-step { min-width: 0; padding: clamp(22px, 4vw, 42px); }
+    .form-step[hidden] { display: none; }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 22px;
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .step { display: grid; width: 28px; height: 28px; place-items: center; border: 2px solid var(--line); border-radius: 50%; background: var(--teal); font-size: 13px; }
+
+    .studio-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+
+    .studio-option { position: relative; display: block; }
+    .studio-option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+    .studio-tile {
+      display: grid;
+      grid-template-rows: 90px auto;
+      min-height: 140px;
+      align-items: center;
+      justify-items: center;
+      padding: 15px;
+      border: 2px solid var(--line);
+      background: var(--white);
+      transition: background-color .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+
+    .studio-tile img { display: block; width: 100%; height: 76px; object-fit: contain; }
+    .studio-name { font-family: var(--display); font-size: 13px; font-weight: 800; text-align: center; text-transform: uppercase; }
+    .studio-option:hover .studio-tile { transform: translateY(-3px); }
+    .studio-option input:checked + .studio-tile { background: #d9fbfc; box-shadow: 5px 5px 0 var(--teal); transform: translate(-2px, -2px); }
+    .studio-option input:focus-visible + .studio-tile { outline: 3px solid var(--blue); outline-offset: 4px; }
+
+    .field { display: grid; gap: 8px; margin-bottom: 19px; }
+    .field label, .field-label { font-family: var(--display); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .required { color: var(--red); }
+
+    .field input, .field select, .field textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 13px;
+      border: 1.5px solid #9b9e9a;
+      border-radius: 0;
+      background: var(--white);
+      color: var(--ink);
+      outline: none;
+    }
+
+    .field textarea { min-height: 134px; resize: vertical; line-height: 1.5; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px #3f49d825; }
+    .field input::placeholder, .field textarea::placeholder { color: #858985; }
+
+    .two-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .check-row { display: flex; align-items: flex-start; gap: 11px; margin: 6px 0 22px; font-size: 14px; line-height: 1.45; }
+    .check-row input { width: 18px; height: 18px; flex: 0 0 auto; margin: 1px 0 0; accent-color: var(--blue); }
+
+    .submit-row { display: flex; align-items: center; gap: 18px; }
+    .step-actions { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 28px; }
+    .back-button { min-height: 48px; padding: 0 16px; border: 2px solid var(--line); background: transparent; color: var(--ink); font-family: var(--display); font-size: 13px; font-weight: 800; text-transform: uppercase; }
+    .submit-button {
+      display: inline-flex;
+      min-height: 56px;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 0 22px;
+      border: 2px solid var(--line);
+      background: var(--blue);
+      color: var(--white);
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: background-color .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+
+    .submit-button:hover { background: #3038b3; box-shadow: 4px 4px 0 var(--line); transform: translate(-2px, -2px); }
+    .submit-button:focus-visible { outline: 3px solid var(--teal); outline-offset: 4px; }
+    .submit-button:disabled { opacity: .65; cursor: wait; }
+    .submit-arrow { font-size: 20px; line-height: 1; }
+    .privacy-note { max-width: 210px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+
+    .form-status { min-height: 24px; margin: 15px 0 0; font-size: 14px; line-height: 1.5; }
+    .form-status.success { color: #087740; }
+    .form-status.error { color: #b3242b; }
+    .honeypot { position: absolute; left: -5000px; width: 1px; height: 1px; overflow: hidden; }
+
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 22px 0 30px; color: var(--muted); font-size: 12px; }
+    footer a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+    @media (max-width: 760px) {
+      .page-shell { width: min(100% - 32px, 560px); }
+      .topbar { min-height: 76px; }
+      .top-note { font-size: 10px; }
+      .hero { padding: 38px 0 30px; }
+      .hero-mark { width: 68px; height: 68px; font-size: 29px; }
+      .intro { display: block; padding: 20px 0 24px; }
+      .intro p { font-size: 15px; }
+      .form-count { display: none; }
+      .topbar-actions { gap: 14px; }
+      .top-note { font-size: 9px; }
+    }
+
+    @media (max-width: 430px) {
+      .page-shell { width: calc(100% - 24px); }
+      .top-note { max-width: 100px; line-height: 1.35; }
+      .topbar-actions { gap: 10px; }
+      .info-link { max-width: 92px; font-size: 11px; line-height: 1.3; }
+      .hero { gap: 12px; }
+      .hero-mark { width: 56px; height: 56px; font-size: 24px; }
+      .studio-tile { min-height: 112px; grid-template-rows: 68px auto; padding: 10px; }
+      .studio-tile img { height: 60px; }
+      .studio-name { font-size: 11px; }
+      .two-fields { grid-template-columns: 1fr; gap: 0; }
+      .submit-row { align-items: flex-start; flex-direction: column; }
+      footer { flex-direction: column; gap: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <img class="main-logo" src="reverse.png" alt="Reverse Studios">
+      <div class="topbar-actions">
+        <a class="info-link" href="https://reverseinfo.devs.li" target="_blank" rel="noopener noreferrer">Info der Firmen</a>
+        <div class="top-note"><span class="live-dot" aria-hidden="true"></span> Neue Leute gesucht</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Dein nächstes Kapitel beginnt hier</p>
+          <h1 id="page-title">Bewerbung</h1>
+        </div>
+        <div class="hero-mark" aria-hidden="true">R</div>
+      </section>
+
+      <section class="intro" aria-label="Einleitung">
+        <p><strong>Gute Ideen entstehen zusammen.</strong> Erzähl uns, wer du bist und worauf du Lust hast. Wir freuen uns darauf, dich kennenzulernen.</p>
+        <span class="form-count" id="step-count">01 / 02</span>
+      </section>
+
+      <form class="application" action="https://formsubmit.co/reversestudiosde@gmail.com" method="POST" id="application-form">
+        <input type="hidden" name="_subject" value="REVERSE BEWERBUNG">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="honeypot" aria-hidden="true"><label for="website">Dieses Feld bitte leer lassen</label><input type="text" name="_honey" id="website" tabindex="-1" autocomplete="off"></div>
+
+        <section class="form-step" id="studio-step" aria-labelledby="studio-heading">
+          <h2 class="section-heading" id="studio-heading" tabindex="-1"><span class="step">1</span> Dein Studio</h2>
+          <div class="studio-options" role="radiogroup" aria-label="Studio auswählen">
+            <label class="studio-option">
+              <input type="radio" name="Studio" value="L&L" required>
+              <span class="studio-tile"><img src="ll.png" alt=""><span class="studio-name">L&amp;L</span></span>
+            </label>
+            <label class="studio-option">
+              <input type="radio" name="Studio" value="MixFix">
+              <span class="studio-tile"><img src="mm.png" alt=""><span class="studio-name">MixFix</span></span>
+            </label>
+            <label class="studio-option">
+              <input type="radio" name="Studio" value="LET Studios">
+              <span class="studio-tile"><img src="let.png" alt=""><span class="studio-name">LET STUDIOS</span></span>
+            </label>
+          </div>
+
+          <div class="field" style="margin-top: 25px">
+            <label for="role">Wofür möchtest du dich bewerben? <span class="required">*</span></label>
+            <input id="role" name="Bewerbung für" type="text" placeholder="z. B. Creator, Schnitt, Design ..." required maxlength="120">
+          </div>
+          <div class="field">
+            <label for="portfolio">Portfolio oder Social Media</label>
+            <input id="portfolio" name="Portfolio / Social Media" type="url" placeholder="https://">
+          </div>
+          <div class="step-actions">
+            <span aria-hidden="true"></span>
+            <button class="submit-button" id="next-step" type="button">Weiter <span class="submit-arrow" aria-hidden="true">↗</span></button>
+          </div>
+        </section>
+
+        <section class="form-step" id="contact-step" aria-labelledby="contact-heading" hidden>
+          <h2 class="section-heading" id="contact-heading" tabindex="-1"><span class="step">2</span> Erzähl uns von dir</h2>
+          <div class="field">
+            <label for="name">Vorname <span class="required">*</span></label>
+            <input id="name" name="Vorname" type="text" autocomplete="given-name" placeholder="Dein Vorname" required maxlength="80">
+          </div>
+          <div class="field">
+            <label for="email">E-Mail <span class="required">*</span></label>
+            <input id="email" name="E-Mail" type="email" autocomplete="email" placeholder="du@beispiel.de" required maxlength="254">
+          </div>
+          <div class="two-fields">
+            <div class="field">
+              <label for="discord">Discord</label>
+              <input id="discord" name="Discord" type="text" placeholder="deinname" maxlength="80">
+            </div>
+            <div class="field">
+              <label for="country">Dein Land</label>
+              <input id="country" name="Land" type="text" autocomplete="country-name" placeholder="Deutschland" maxlength="80">
+            </div>
+          </div>
+          <div class="field">
+            <label for="about">Warum passt du zu uns? <span class="required">*</span></label>
+            <textarea id="about" name="Über mich und meine Bewerbung" placeholder="Was begeistert dich? Was bringst du mit?" required maxlength="5000"></textarea>
+          </div>
+          <label class="check-row" for="interview">
+            <input id="interview" name="Discord-Bewerbungsgespräch" type="checkbox" value="Ja, gerne">
+            <span>Ich bin offen für ein Bewerbungsgespräch auf Discord.</span>
+          </label>
+          <label class="check-row" for="consent">
+            <input id="consent" name="Kontakt-Einwilligung" type="checkbox" value="Ja" required>
+            <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Bewerbung verwendet werden. <span class="required">*</span></span>
+          </label>
+          <div class="step-actions">
+            <button class="back-button" id="previous-step" type="button">Zurück</button>
+          <div class="submit-row">
+            <button class="submit-button" id="submit-button" type="submit"><span id="submit-label">Bewerbung senden</span><span class="submit-arrow" aria-hidden="true">↗</span></button>
+            <p class="privacy-note">Deine Angaben werden direkt an das Team gesendet.</p>
+          </div>
+          </div>
+        </section>
+      </form>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> Reverse Studios</span>
+      <a href="mailto:reversestudiosde@gmail.com">Kontakt: reversestudiosde@gmail.com</a>
+    </footer>
+  </div>
+
+  <script>
+    const studioStep = document.querySelector("#studio-step");
+    const contactStep = document.querySelector("#contact-step");
+    const stepCount = document.querySelector("#step-count");
+
+    document.querySelector("#next-step").addEventListener("click", () => {
+      const firstInvalidField = Array.from(studioStep.querySelectorAll("input, select, textarea"))
+        .find((field) => !field.checkValidity());
+      if (firstInvalidField) {
+        firstInvalidField.reportValidity();
+        return;
+      }
+
+      studioStep.hidden = true;
+      contactStep.hidden = false;
+      stepCount.textContent = "02 / 02";
+      document.querySelector("#contact-heading").focus();
+    });
+
+    document.querySelector("#previous-step").addEventListener("click", () => {
+      contactStep.hidden = true;
+      studioStep.hidden = false;
+      stepCount.textContent = "01 / 02";
+      document.querySelector("#studio-heading").focus();
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+
+  </script>
+</body>
+</html>
